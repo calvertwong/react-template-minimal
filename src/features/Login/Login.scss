@@ -1,0 +1,6 @@
+@import "../../scss/dimens.scss";
+
+.login-input {
+    max-width: $authInputWidth;
+    border-radius: $authBorderRadius;
+}
