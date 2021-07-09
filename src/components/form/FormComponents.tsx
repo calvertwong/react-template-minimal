@@ -2,6 +2,6 @@ import {CoreFormProps} from './CoreFormProps'
 
 export const BasicForm: React.FC<CoreFormProps> = (props: CoreFormProps) => {
   return (
-    <form {...props}></form>
+    <form {...props} noValidate></form>
   )
 }

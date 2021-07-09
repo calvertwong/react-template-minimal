@@ -1,11 +1,8 @@
+import {ACCESSIBILITY_ROLE} from '../../constants/AppConstants'
 import {CoreImageProps} from './CoreImageProps'
 
-const circleStyle = {
-  borderRadius: "50%",
-}
-
-export const BasicImage: React.FC<CoreImageProps> = ({alt, isCircle, disableAccessibility, ...props}: CoreImageProps) => {
+export const BasicImage: React.FC<CoreImageProps> = ({alt, className, isCircle, disableAccessibility, ...props}: CoreImageProps) => {
   return (
-    <img  {...props} alt={alt} style={isCircle ? circleStyle : {}} role={disableAccessibility ? "presentation" : "img"} />
+    <img {...props} className={className + (isCircle ? " rounded-circle" : '')} alt={alt} role={disableAccessibility ? ACCESSIBILITY_ROLE.PRESENTATION : ACCESSIBILITY_ROLE.IMG} />
   )
 }

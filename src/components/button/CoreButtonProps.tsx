@@ -1,6 +1,5 @@
-import React from 'react';
-
 export interface CoreButtonProps {
+  ariaLabel?: string
   autoFocus?: boolean
   btnText: string
   className?: string
@@ -8,5 +7,5 @@ export interface CoreButtonProps {
   form?: string
   formTarget?: string
   value?: string
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
+  onClick?: any
 }

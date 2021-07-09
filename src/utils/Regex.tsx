@@ -1,2 +1,2 @@
-// eslint-disable-next-line no-useless-escape
-export const EMAIL_VALIDATION: string = "^([\w\W]+)@([\w\W]+)\.([\w\W])"
+// Matches if '@' and '.' are present and with texts before and after them
+export const EMAIL_REGEX: RegExp = /.+@.+\..+/

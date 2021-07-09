@@ -1,2 +1,6 @@
-$authInputWidth: 444px;
-$authBorderRadius: 0.5rem;
+$defaultBorderRadius: 0.7rem;
+
+@mixin authLogoDimens {
+    height: 150px;
+    width: 150px;
+}
