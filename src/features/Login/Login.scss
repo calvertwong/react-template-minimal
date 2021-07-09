@@ -1,0 +1,9 @@
+@import "../../scss/dimens.scss";
+
+.login-input {
+    border-radius: $defaultBorderRadius;
+}
+
+.login-logo {
+    @include authLogoDimens;
+}

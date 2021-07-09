@@ -1,0 +1,7 @@
+{
+  "prettier.typescriptEnable": [
+  
+    "typescript",
+    "typescriptreact"
+  ]
+}
