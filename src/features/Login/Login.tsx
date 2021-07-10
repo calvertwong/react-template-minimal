@@ -8,10 +8,10 @@ import {LoginClient} from '../../services/login/LoginService'
 
 import './Login.scss'
 
-import {ERROR_MESSAGE, LOGIN} from '../../constants/AppConstants'
+import {ERROR_MESSAGE, FEATURE_NAMES} from '../../constants/AppConstants'
 import {BasicCard} from '../../components/card/CardComponents'
 import {BasicImage} from '../../components/image/ImageComponents'
-import {BasicContainer} from '../../components/container/ContainerComponents'
+import {BasicContainer, WrapperContainer} from '../../components/container/ContainerComponents'
 import {EMAIL_REGEX} from '../../utils/Regex'
 import {BasicToast} from '../../components/alert/AlertComponents'
 import {BasicLabel} from '../../components/label/LabelComponents'
@@ -27,7 +27,7 @@ const Login = ({history}: RouteComponentProps) => {
 
   // Set title in the browser tab
   useEffect(() => {
-    document.title = 'Login'
+    document.title = FEATURE_NAMES.LOGIN
   })
 
   /**
@@ -96,13 +96,13 @@ const Login = ({history}: RouteComponentProps) => {
   }
 
   return (
-    <BasicContainer className="bg-success">
-      <BasicCard className="mt-5 w-25 mx-auto bg-white">
+    <WrapperContainer className="bg-success">
+      <BasicCard className="mt-5 mx-auto bg-white col-10 col-md-7 col-lg-6 col-xl-4">
         <BasicForm onSubmit={handleLogin}>
-          <div className="d-flex flex-column">
+          <BasicContainer className="d-flex flex-column">
             <BasicImage className="mt-5 align-self-center login-logo" src="https://picsum.photos/200" alt="company logo" disableAccessibility={true} />
 
-            <BasicText className="h1 mt-4 py-4 fw-normal fs-3 align-self-center" text={LOGIN} />
+            <BasicText className="h1 mt-4 py-4 fw-normal fs-3 align-self-center" text={FEATURE_NAMES.LOGIN} />
 
             <BasicLabel text="Email:" className="mt-3">
               <EmailInput name="email" ariaLabel="Email" onBlur={checkLoginEmail} />
@@ -127,7 +127,7 @@ const Login = ({history}: RouteComponentProps) => {
             </BasicLabel>
 
             <SubmitButton className="mt-4 px-4 py-2 w-50 align-self-center" btnText="Submit" />
-          </div>
+          </BasicContainer>
         </BasicForm>
       </BasicCard >
       {
@@ -137,7 +137,7 @@ const Login = ({history}: RouteComponentProps) => {
           :
           null
       }
-    </BasicContainer >
+    </WrapperContainer >
   )
 }
 

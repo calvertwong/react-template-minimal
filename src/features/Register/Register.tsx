@@ -6,16 +6,18 @@ import {DateInput, EmailInput, PasswordInput, TextInput} from '../../components/
 import {BasicText} from '../../components/text/TextComponents'
 import {RegisterClient} from '../../services/register/RegisterService'
 
-import {ERROR_MESSAGE, GENDER, REGISTER} from '../../constants/AppConstants'
+import {ERROR_MESSAGE, GENDER, FEATURE_NAMES} from '../../constants/AppConstants'
 import {BasicCard} from '../../components/card/CardComponents'
 import {BasicImage} from '../../components/image/ImageComponents'
-import {BasicContainer} from '../../components/container/ContainerComponents'
+import {BasicContainer, WrapperContainer} from '../../components/container/ContainerComponents'
 import {DATE_REGEX, EMAIL_REGEX} from '../../utils/Regex'
 import {BasicToast} from '../../components/alert/AlertComponents'
 import {BasicDropDown} from '../../components/dropdown/DropDownComponents'
 import {BasicLabel} from '../../components/label/LabelComponents'
 
 import './Register.scss'
+
+import {AppPaths} from '../../navigation/AppPaths'
 
 const Register = ({history}: RouteComponentProps) => {
   const [showFirstNameError, setShowFirstNameError] = useState<boolean>(false)
@@ -41,7 +43,7 @@ const Register = ({history}: RouteComponentProps) => {
 
   // Set title in the browser tab
   useEffect(() => {
-    document.title = 'Register'
+    document.title = FEATURE_NAMES.REGISTER
   })
 
   /**
@@ -185,7 +187,7 @@ const Register = ({history}: RouteComponentProps) => {
 
       // modify as needed
       if(true) {
-        history.push("/login")
+        history.push(AppPaths.LOGIN_PATH)
       }
     } else {
       handleRegisterToast(true)
@@ -200,22 +202,33 @@ const Register = ({history}: RouteComponentProps) => {
   }
 
   return (
-    <BasicContainer className="bg-success">
-      <BasicCard className="mt-5 w-50 mx-auto bg-white">
+    <WrapperContainer className="bg-success">
+      <BasicCard className="mt-5 mx-auto bg-white col-10 col-md-7 col-lg-6 col-xl-4">
         <BasicForm onSubmit={handleRegister}>
-          <div className="d-flex flex-column">
+          <BasicContainer className="d-flex flex-column">
             <BasicImage className="mt-5 align-self-center register-logo" src="https://picsum.photos/200" alt="company logo" disableAccessibility={true} />
 
-            <BasicText className="h1 mt-4 py-4 fw-normal fs-3 align-self-center" text={REGISTER} />
+            <BasicText className="h1 mt-4 py-4 fw-normal fs-3 align-self-center" text={FEATURE_NAMES.REGISTER} />
 
-            <div className="d-flex flex-row">
-              <div className="w-50">
+            <BasicContainer className="d-flex flex-column">
+              <BasicContainer className="col-12">
                 <BasicLabel text="First Name:" className="mt-3">
                   <TextInput name="firstName" ariaLabel="First Name" onBlur={checkRegisterFirstName} />
                   {
                     showFirstNameError
                       ?
                       <BasicText className="text-danger m-0 fs-6" text={firstNameError} />
+                      :
+                      null
+                  }
+                </BasicLabel>
+
+                <BasicLabel text="Last Name:" className="mt-3">
+                  <TextInput name="lastName" ariaLabel="Last Name" onBlur={checkRegisterLastName} />
+                  {
+                    showLastNameError
+                      ?
+                      <BasicText className="text-danger m-0 fs-6" text={lastNameError} />
                       :
                       null
                   }
@@ -232,6 +245,10 @@ const Register = ({history}: RouteComponentProps) => {
                   }
                 </BasicLabel>
 
+                <BasicLabel text="Gender:" className="mt-3">
+                  <BasicDropDown options={GENDER} name="gender" onChange={checkRegisterGender} />
+                </BasicLabel>
+
                 <BasicLabel text="Email:" className="mt-3">
                   <EmailInput name="email" ariaLabel="Email" onBlur={checkRegisterEmail} />
                   {
@@ -241,23 +258,6 @@ const Register = ({history}: RouteComponentProps) => {
                       :
                       null
                   }
-                </BasicLabel>
-              </div>
-
-              <div className="w-50 offset-1">
-                <BasicLabel text="Last Name:" className="mt-3">
-                  <TextInput name="lastName" ariaLabel="Last Name" onBlur={checkRegisterLastName} />
-                  {
-                    showLastNameError
-                      ?
-                      <BasicText className="text-danger m-0 fs-6" text={lastNameError} />
-                      :
-                      null
-                  }
-                </BasicLabel>
-
-                <BasicLabel text="Gender:" className="mt-3">
-                  <BasicDropDown options={GENDER} name="gender" onChange={checkRegisterGender} />
                 </BasicLabel>
 
                 <BasicLabel text="Password:" className="mt-3">
@@ -270,11 +270,12 @@ const Register = ({history}: RouteComponentProps) => {
                       null
                   }
                 </BasicLabel>
-              </div>
-            </div>
+
+              </BasicContainer>
+            </BasicContainer>
 
             <SubmitButton className="mt-4 px-4 py-2 w-50 align-self-center" btnText="Submit" />
-          </div>
+          </BasicContainer>
         </BasicForm>
       </BasicCard >
       {
@@ -284,7 +285,7 @@ const Register = ({history}: RouteComponentProps) => {
           :
           null
       }
-    </BasicContainer >
+    </WrapperContainer >
   )
 }
 
