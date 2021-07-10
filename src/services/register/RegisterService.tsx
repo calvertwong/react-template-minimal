@@ -1,13 +1,16 @@
 import {service} from '../ApiService'
-import {LoginProps} from './LoginProps'
+import {RegisterProps} from './RegisterProps'
 
-export const LoginClient = ({email, password}: LoginProps) => {
+export const RegisterClient = ({firstName, lastName, dob, gender, email, password}: RegisterProps) => {
   return service.post('/endpoint', {
+    firstName: firstName,
+    lastName: lastName,
+    dob: dob,
+    gender: gender,
     email: email,
     password: password
   })
     .then((response: any) => {
-      // access token
       return response
     })
     .catch((err: any) => {
