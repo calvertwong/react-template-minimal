@@ -1,0 +1,5 @@
+@import "../../scss/dimens.scss";
+
+.register-logo {
+    @include authLogoDimens;
+}
