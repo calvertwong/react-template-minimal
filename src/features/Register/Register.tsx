@@ -181,6 +181,7 @@ const Register = ({history}: RouteComponentProps) => {
         email: registerEmail,
         password: registerPassword
       })
+      console.log(response)
 
       // modify as needed
       if(true) {
