@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import {RouteComponentProps, withRouter} from 'react-router'
 import {SubmitButton} from '../../components/button/ButtonComponents'
 import {BasicForm} from '../../components/form/FormComponents'
 import {EmailInput, PasswordInput} from '../../components/input/InputComponents'
@@ -13,8 +14,9 @@ import {BasicImage} from '../../components/image/ImageComponents'
 import {BasicContainer} from '../../components/container/ContainerComponents'
 import {EMAIL_REGEX} from '../../utils/Regex'
 import {BasicToast} from '../../components/alert/AlertComponents'
+import {BasicLabel} from '../../components/label/LabelComponents'
 
-export const Login = () => {
+const Login = ({history}: RouteComponentProps) => {
   const [showEmailError, setShowEmailError] = useState<boolean>(false)
   const [emailError, setEmailError] = useState<string>("")
   const [showPasswordError, setShowPasswordError] = useState<boolean>(false)
@@ -54,7 +56,6 @@ export const Login = () => {
   /**
    * Validate login password
    * 1) Checks if the field is empty
-   * 2) Checks if input is 8 or more characters
    * 
    * Output:
    * 1) If error, show appropriate error message below the input element and reset password state
@@ -64,10 +65,6 @@ export const Login = () => {
     if(e.target.value === "") {
       setPasswordError(ERROR_MESSAGE.EMPTY_FIELD)
       setShowPasswordError(true)
-    } else if(e.target.value.length < 7) {
-      setPasswordError(ERROR_MESSAGE.INVALID_PASSWORD)
-      setShowPasswordError(true)
-      setLoginPassword("")
     } else {
       setShowPasswordError(false)
       setLoginPassword(e.target.value)
@@ -76,16 +73,15 @@ export const Login = () => {
 
   /**
    * Perform login when
-   * 1) Login email and password are available, show error toast otherwise
+   * 1) Login email and password are available, show error toast otherwise or at failure
    * 2) Store token in local storage
    */
   const handleLogin = async (e: React.FormEvent<Element>) => {
     e.preventDefault()
 
     if(loginEmail !== "" && loginPassword !== "") {
-      console.log("haha")
       handleLoginToast(false)
-      let token = await LoginClient({username: loginEmail, password: loginPassword})
+      let token = await LoginClient({email: loginEmail, password: loginPassword})
       localStorage.setItem("token", token)
     } else {
       handleLoginToast(true)
@@ -108,23 +104,27 @@ export const Login = () => {
 
             <BasicText className="h1 mt-4 py-4 fw-normal fs-3 align-self-center" text={LOGIN} />
 
-            <EmailInput className="mt-4 w-100 px-3 py-2 fs-5 login-input" name="email" ariaLabel="Email" placeholder="Enter email" onBlur={checkLoginEmail} />
-            {
-              showEmailError
-                ?
-                <BasicText className="text-danger m-0" text={emailError} />
-                :
-                null
-            }
+            <BasicLabel text="Email:" className="mt-3">
+              <EmailInput name="email" ariaLabel="Email" onBlur={checkLoginEmail} />
+              {
+                showEmailError
+                  ?
+                  <BasicText className="text-danger m-0 fs-6" text={emailError} />
+                  :
+                  null
+              }
+            </BasicLabel>
 
-            <PasswordInput className="mt-3 w-100 px-3 py-2 fs-5 login-input" name="password" ariaLabel="Password" placeholder="Enter password" onBlur={checkLoginPassword} />
-            {
-              showPasswordError
-                ?
-                <BasicText className="text-danger m-0" text={passwordError} />
-                :
-                null
-            }
+            <BasicLabel text="Password:" className="mt-3">
+              <PasswordInput name="password" ariaLabel="Password" onBlur={checkLoginPassword} />
+              {
+                showPasswordError
+                  ?
+                  <BasicText className="text-danger m-0 fs-6" text={passwordError} />
+                  :
+                  null
+              }
+            </BasicLabel>
 
             <SubmitButton className="mt-4 px-4 py-2 w-50 align-self-center" btnText="Submit" />
           </div>
@@ -137,6 +137,8 @@ export const Login = () => {
           :
           null
       }
-    </BasicContainer>
+    </BasicContainer >
   )
 }
+
+export const LoginWithRouter = withRouter(Login)
