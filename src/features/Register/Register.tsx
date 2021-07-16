@@ -274,7 +274,7 @@ const Register = ({history}: RouteComponentProps) => {
               </BasicContainer>
             </BasicContainer>
 
-            <SubmitButton className="mt-4 px-4 py-2 w-50 align-self-center" btnText="Submit" />
+            <SubmitButton className="mt-4 px-4 py-2 w-50 align-self-center" btnText="Register now" />
           </BasicContainer>
         </BasicForm>
       </BasicCard >
