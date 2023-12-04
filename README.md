@@ -9,7 +9,7 @@ What’s inside:
 - axios
 - scss
 - Simple Custom Components
-- Not complicated folders/files structure
+- Maintainable folders/files structure
 
 # Screens (simple)
 - Login UI
